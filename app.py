@@ -12,8 +12,10 @@ st.set_page_config(page_title="Personal Timetable Creator- Trimester 5, 2nd Half
 st.title("Personal Timetable Creator- Trimester 5, 2nd Half")
 
 # The exact instruction text required
-st.write("""
-""" + " Step 1: Select your subjects from the list\nStep 2: Click on generate timetable button\nStep 3: Click on Download button to download the excel file" + """
+st.markdown("""
+**Step 1:** Select your subjects from the list  
+**Step 2:** Click on generate timetable button  
+**Step 3:** Click on Download button to download the excel file
 """)
 
 # --- Download and preprocess the timetable sheet (run once on load) ---
