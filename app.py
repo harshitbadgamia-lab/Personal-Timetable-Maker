@@ -210,6 +210,6 @@ if st.button("Generate Timetable"):
         st.download_button(
             label="Download Timetable as Excel",
             data=output.getvalue(),
-            file_name=f"personal_timetable_{campus.lower().replace(' ', '_')}.xlsx",
+            file_name="personal_timetable_T6.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
