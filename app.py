@@ -6,32 +6,30 @@ import requests
 from openpyxl.utils import range_boundaries
 import numpy as np
 import xlsxwriter
+import re
+
+def clean_cell_text(val):
+    if pd.isna(val):
+        return val
+    # Convert to string, replace newlines with space
+    val = str(val).replace('\n', ' ')
+    # Collapse multiple spaces/tabs into one space
+    val = re.sub(r'\s+', ' ', val)
+    return val.strip()
 
 # -------------------------------------------
 # Streamlit UI
 # -------------------------------------------
 
-st.title("Personal Timetable Creator - Trimester 5, 2nd Half")
+st.title("Personal Timetable Creator - Trimester 6, 2nd Half")
 
 st.markdown("""
-**Step 1:** Select your campus and subjects from the list  
+**Step 1:** Select your subjects from the list  
 **Step 2:** Click on 'Generate Timetable' button  
 **Step 3:** Click on 'Download' button to download the Excel file
 """)
 
-# --- Campus Selection ---
-campus = st.selectbox(
-    "Select your campus:",
-    ["New Delhi", "Gurgaon"]
-)
-
-# --- Google Sheet URLs for each campus ---
-campus_urls = {
-    "New Delhi": "https://docs.google.com/spreadsheets/d/1hxMVAdZM-aaHY1IDy7Hg8wLPdevSEhVx/edit?usp=sharing&ouid=106900160560444308561&rtpof=true&sd=true",
-    "Gurgaon": "https://docs.google.com/spreadsheets/d/1owRJJCGwo9J5o24grEM3IWHECb4oE2NL/edit?usp=sharing&ouid=106900160560444308561&rtpof=true&sd=true"
-}
-
-url = campus_urls[campus]
+url = "https://docs.google.com/spreadsheets/d/1IOV7tXB9B06Zpg9AgVnXaPYAa9TkfY23/edit?usp=sharing&ouid=106900160560444308561&rtpof=true&sd=true"
 
 # -------------------------------------------
 # File download and preprocessing (same logic)
@@ -133,7 +131,7 @@ for col in unnamed_cols:
             else:
                 tt.loc[index, left_col] = row[col]
 tt = tt.drop(columns=unnamed_cols)
-
+tt = tt.applymap(clean_cell_text)
 # -------------------------------------------
 # Dynamic subject extraction
 # -------------------------------------------
@@ -207,11 +205,11 @@ if st.button("Generate Timetable"):
             for row_num in range(len(personal_tt) + 1):
                 worksheet.set_row(row_num, 32.4)
             for col_num in range(len(personal_tt.columns)):
-                worksheet.set_column(col_num, col_num, 20)
+                worksheet.set_column(col_num, col_num, 24)
 
         st.download_button(
             label="Download Timetable as Excel",
             data=output.getvalue(),
-            file_name=f"personal_timetable_{campus.lower().replace(' ', '_')}.xlsx",
+            file_name="personal_timetable_T6.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
