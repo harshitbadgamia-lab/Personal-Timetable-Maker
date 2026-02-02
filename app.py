@@ -6,6 +6,16 @@ import requests
 from openpyxl.utils import range_boundaries
 import numpy as np
 import xlsxwriter
+import re
+
+def clean_cell_text(val):
+    if pd.isna(val):
+        return val
+    # Convert to string, replace newlines with space
+    val = str(val).replace('\n', ' ')
+    # Collapse multiple spaces/tabs into one space
+    val = re.sub(r'\s+', ' ', val)
+    return val.strip()
 
 # -------------------------------------------
 # Streamlit UI
@@ -121,7 +131,7 @@ for col in unnamed_cols:
             else:
                 tt.loc[index, left_col] = row[col]
 tt = tt.drop(columns=unnamed_cols)
-
+tt = tt.applymap(clean_cell_text)
 # -------------------------------------------
 # Dynamic subject extraction
 # -------------------------------------------
@@ -195,7 +205,7 @@ if st.button("Generate Timetable"):
             for row_num in range(len(personal_tt) + 1):
                 worksheet.set_row(row_num, 32.4)
             for col_num in range(len(personal_tt.columns)):
-                worksheet.set_column(col_num, col_num, 20)
+                worksheet.set_column(col_num, col_num, 24)
 
         st.download_button(
             label="Download Timetable as Excel",
