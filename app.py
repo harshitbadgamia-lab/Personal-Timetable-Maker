@@ -205,7 +205,7 @@ if st.button("Generate Timetable"):
             for row_num in range(len(personal_tt) + 1):
                 worksheet.set_row(row_num, 32.4)
             for col_num in range(len(personal_tt.columns)):
-                worksheet.set_column(col_num, col_num, 24)
+                worksheet.set_column(col_num, col_num, 25)
 
         st.download_button(
             label="Download Timetable as Excel",
