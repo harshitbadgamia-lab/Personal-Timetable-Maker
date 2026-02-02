@@ -11,27 +11,15 @@ import xlsxwriter
 # Streamlit UI
 # -------------------------------------------
 
-st.title("Personal Timetable Creator - Trimester 5, 2nd Half")
+st.title("Personal Timetable Creator - Trimester 6, 2nd Half")
 
 st.markdown("""
-**Step 1:** Select your campus and subjects from the list  
+**Step 1:** Select your subjects from the list  
 **Step 2:** Click on 'Generate Timetable' button  
 **Step 3:** Click on 'Download' button to download the Excel file
 """)
 
-# --- Campus Selection ---
-campus = st.selectbox(
-    "Select your campus:",
-    ["New Delhi", "Gurgaon"]
-)
-
-# --- Google Sheet URLs for each campus ---
-campus_urls = {
-    "New Delhi": "https://docs.google.com/spreadsheets/d/1hxMVAdZM-aaHY1IDy7Hg8wLPdevSEhVx/edit?usp=sharing&ouid=106900160560444308561&rtpof=true&sd=true",
-    "Gurgaon": "https://docs.google.com/spreadsheets/d/1owRJJCGwo9J5o24grEM3IWHECb4oE2NL/edit?usp=sharing&ouid=106900160560444308561&rtpof=true&sd=true"
-}
-
-url = campus_urls[campus]
+url = "https://docs.google.com/spreadsheets/d/1IOV7tXB9B06Zpg9AgVnXaPYAa9TkfY23/edit?usp=sharing&ouid=106900160560444308561&rtpof=true&sd=true"
 
 # -------------------------------------------
 # File download and preprocessing (same logic)
